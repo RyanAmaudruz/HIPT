@@ -3,6 +3,7 @@
 import os
 import pickle
 import sys
+sys.path.append('../2-Weakly-Supervised-Subtyping')
 
 # LinAlg / Stats / Plotting Dependencies
 import h5py
@@ -28,6 +29,8 @@ torch.multiprocessing.set_sharing_strategy('file_system')
 # Model Architectures
 from nn_encoder_arch.vision_transformer import vit_small
 from nn_encoder_arch.resnet_trunc import resnet50_trunc_baseline
+
+from patch_extraction_utils import create_embeddings
 
 ### Extracting Patch Features
 patch_datasets = 'path/to/patch/datasets'

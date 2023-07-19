@@ -4,6 +4,9 @@ import argparse
 import pdb
 import os
 import math
+import sys
+
+sys.path.append('2-Weakly-Supervised-Subtyping')
 
 ### Numerical Packages
 import numpy as np
@@ -99,7 +102,7 @@ parser.add_argument('--model_type',     type=str, default='clam_sb', help='Type 
                     choices=['clam_sb', 'clam_mb', 'mil', 'dgcn', 'mi_fcn', 'dsmil', 'hipt_n', 'hipt_lgp'])
 parser.add_argument('--features',       type=str, default='vits_tcga_pancancer_dino', help='Which features to use',
                     choices=['resnet50_trunc', 'vits_tcga_pancancer_dino'])
-parser.add_argument('--task',           type=str, default='tcga_lung_subtype', help='Which weakly-supervised task to evaluate on.')
+parser.add_argument('--task',           type=str, default='tcga_brca_subtype', help='Which weakly-supervised task to evaluate on.')
 parser.add_argument('--path_input_dim', type=int, default=384, help='Size of patch embedding size (384 for DINO)')
 parser.add_argument('--mode',           type=str, default='path', help='Which features to load')
 parser.add_argument('--prop',           type=float, default=1.0, help='Proportion of training dataset to use')

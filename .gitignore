@@ -2,3 +2,5 @@
 *__pycache__*
 *.DS_store
 *.pyc
+/.idea/
+/tcga_code_tables/
