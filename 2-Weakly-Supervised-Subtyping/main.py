@@ -14,9 +14,9 @@ import pandas as pd
 
 ### Internal Imports
 from datasets.dataset_generic import Generic_WSI_Classification_Dataset, Generic_MIL_Dataset
-from utils.file_utils import save_pkl, load_pkl
-from utils.utils import *
-from utils.core_utils import train
+from clam_utils.file_utils import save_pkl, load_pkl
+from clam_utils.general_utils import *
+from clam_utils.core_utils import train
 
 ### PyTorch Imports
 import torch

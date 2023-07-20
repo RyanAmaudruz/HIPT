@@ -7,9 +7,13 @@ import sys
 # LinAlg / Stats / Plotting Dependencies
 import h5py
 import matplotlib.pyplot as plt
+import matplotlib
 import numpy as np
 import pandas as pd
 from PIL import Image
+
+from HIPT_4K.hipt_heatmap_utils import cmap_map
+
 Image.MAX_IMAGE_PIXELS = None
 from tqdm import tqdm
 
@@ -24,7 +28,10 @@ torch.multiprocessing.set_sharing_strategy('file_system')
 # Local Dependencies
 import vision_transformer as vits
 import vision_transformer4k as vits4k
-from hipt_heatmap_utils import *
+# from hipt_heatmap_utils import *
+
+sys.path.append('../HIPT_4K/')
+
 from hipt_model_utils import get_vit256, get_vit4k, tensorbatch2im, eval_transforms, roll_batch2img
 
 

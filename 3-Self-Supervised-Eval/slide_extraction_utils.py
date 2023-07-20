@@ -45,7 +45,7 @@ def save_embeddings_mean(save_pickle_fpath, dataset):
     
     Args:
         - save_fpath (str): Save filepath for the pickle object.
-        - dataset (torch.utils.data.dataset): SlideEmbeddingDataset_WS object that iterates+loads each WSI in a folder
+        - dataset (torch.clam_utils_old.data.dataset): SlideEmbeddingDataset_WS object that iterates+loads each WSI in a folder
     
     Return:
         - None
@@ -69,7 +69,7 @@ def save_embeddings_mean(save_pickle_fpath, dataset):
 
 class SlideEmbeddingSplitDataset(Dataset):
     r"""
-    torch.utils.data.dataset object that iterates+loads each WSI from a split CSV file
+    torch.clam_utils_old.data.dataset object that iterates+loads each WSI from a split CSV file
     
     Args:
         - dataroot (str): Path to wsi_labels.csv.

@@ -27,7 +27,7 @@ from functools import partial
 import torch
 import torch.nn as nn
 
-#from utils import trunc_normal_
+#from clam_utils_old import trunc_normal_
 
 
 

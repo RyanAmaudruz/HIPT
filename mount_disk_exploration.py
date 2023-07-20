@@ -2,18 +2,18 @@ import os
 import pandas as pd
 import h5py
 
-def prepare_dir(file_path):
-    """
-    This function is used to create the directories needed to output a path. If the directories already exist, the
-    function continues.
-    """
-    # Remove the file name to only keep the directory path.
-    dir_path = '/'.join(file_path.split('/')[:-1])
-    # Try to create the directory. Will have no effect if the directory already exists.
-    try:
-        os.makedirs(dir_path)
-    except FileExistsError:
-        pass
+# def prepare_dir(file_path):
+#     """
+#     This function is used to create the directories needed to output a path. If the directories already exist, the
+#     function continues.
+#     """
+#     # Remove the file name to only keep the directory path.
+#     dir_path = '/'.join(file_path.split('/')[:-1])
+#     # Try to create the directory. Will have no effect if the directory already exists.
+#     try:
+#         os.makedirs(dir_path)
+#     except FileExistsError:
+#         pass
 
 
 data_path = '/mnt/disks/data_dir/data/gdc/'
@@ -100,12 +100,21 @@ df_svs['study_name'] = df_svs['tss'].map(study_map)
 df_svs['study_abbr'] = df_svs['study_name'].map(study_name_to_abbr_map)
 
 
-
-tcga_slide_emb_list = os.listdir('3-Self-Supervised-Eval/embeddings_slide_lib/embeddings_slide_lib/vit256mean_tcga_slide_embeddings')
+exi_tcga_path = '3-Self-Supervised-Eval/embeddings_slide_lib/embeddings_slide_lib/vit256mean_tcga_slide_embeddings/'
+tcga_slide_emb_list = os.listdir(exi_tcga_path)
 tcga_slide_emb_df = pd.DataFrame({'file_name': tcga_slide_emb_list})
 tcga_slide_emb_df['id'] = tcga_slide_emb_df['file_name'].map(lambda x: x.split('.')[0])
-tcga_slide_emb_df2 = tcga_slide_emb_df[tcga_slide_emb_df['id'].isin(df_svs['id'].unique().tolist())]
 
+my_tcga_path = '/mnt/disks/data_dir/data/features_4096_fp/pt_files/'
+my_tcga_slide_emb_list = os.listdir(my_tcga_path)
+tcga_slide_emb_df2 = tcga_slide_emb_df[tcga_slide_emb_df['file_name'].isin(my_tcga_slide_emb_list)]
+
+import torch
+vit256_features_exi = torch.load(exi_tcga_path + tcga_slide_emb_df2['file_name'].iloc[0])
+vit256_features_new = torch.load(my_tcga_path + tcga_slide_emb_df2['file_name'].iloc[0])
+
+vit256_features_exi2 = torch.load(exi_tcga_path + tcga_slide_emb_df2['file_name'].iloc[1])
+vit256_features_new2 = torch.load(my_tcga_path + tcga_slide_emb_df2['file_name'].iloc[1])
 
 
 
@@ -121,6 +130,24 @@ file_path = '/mnt/disks/data_dir/data/output_4096/patches/TCGA-A1-A0SI-01Z-00-DX
 with h5py.File(file_path, "r") as f:
     imgs_4096 = f['imgs'][:]
     coords_4096 = f['coords'][:]
+
+
+
+file_path = '/mnt/disks/data_dir/data/output/patches/TCGA-A1-A0SN-01Z-00-DX1.5E9B85AE-AFB7-41DC-8A1B-BD6DA39B6540.h5'
+with h5py.File(file_path, "r") as f:
+    imgs_256b = f['imgs'][:]
+    coords_256b = f['coords'][:]
+
+file_path = '/mnt/disks/data_dir/data/output_4096/patches/TCGA-A1-A0SN-01Z-00-DX1.5E9B85AE-AFB7-41DC-8A1B-BD6DA39B6540.h5'
+with h5py.File(file_path, "r") as f:
+    imgs_4096b = f['imgs'][:]
+    coords_4096b = f['coords'][:]
+
+file_path = '/mnt/disks/data_dir/data/output_4096_fp/patches/TCGA-A1-A0SN-01Z-00-DX1.5E9B85AE-AFB7-41DC-8A1B-BD6DA39B6540.h5'
+with h5py.File(file_path, "r") as f:
+    coords_4096c = f['coords'][:]
+
+
 
 coords_256_list = []
 for i in range(coords_256.shape[0]):
@@ -169,13 +196,22 @@ df_256['ass_top_y'] = [x['top_y'] for x in data_list]
 
 file_path = '/mnt/disks/data_dir/data/output_256_fp/patches/TCGA-A1-A0SI-01Z-00-DX1.AB717348-F964-4F29-BBE2-972B7C640432.h5'
 with h5py.File(file_path, "r") as f:
-    imgs_256 = f['imgs'][:]
     coords_256 = f['coords'][:]
 
 file_path = '/mnt/disks/data_dir/data/features_256_fp/h5_files/TCGA-A1-A0SI-01Z-00-DX1.AB717348-F964-4F29-BBE2-972B7C640432.h5'
 with h5py.File(file_path, "r") as f:
     coords_256 = f['coords'][:]
     features_256 = f['features'][:]
+
+
+
+file_path = '/mnt/disks/data_dir/data/features_4096_fp/h5_files/TCGA-A1-A0SI-01Z-00-DX1.AB717348-F964-4F29-BBE2-972B7C640432.h5'
+with h5py.File(file_path, "r") as f:
+    coords_4096 = f['coords'][:]
+    features_4096 = f['features'][:]
+
+
+
 
 
 # import shutil
